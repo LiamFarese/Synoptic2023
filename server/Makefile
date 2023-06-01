@@ -8,9 +8,9 @@ dropdb:
 	docker exec -it postgres15.3 dropdb synoptic
 
 migrateup:
-	migrate -path migrations -database "postgresql://root:secret@localhost:5432/synoptic?sslmode=disable" -verbose up 
+	migrate -path ./db/migrations -database "postgresql://root:secret@localhost:5432/synoptic?sslmode=disable" -verbose up 
 
 migratedown:
-	migrate -path migrations -database "postgresql://root:secret@localhost:5432/synoptic?sslmode=disable" -verbose down 
+	migrate -path ./db/migrations -database "postgresql://root:secret@localhost:5432/synoptic?sslmode=disable" -verbose down 
 
 .PHONY: postgres createdb dropdb migrateup migratedown
