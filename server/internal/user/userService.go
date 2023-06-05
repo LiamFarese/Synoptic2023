@@ -1,14 +1,13 @@
 package user
 
 import (
-	"Github.com/Synoptic2023/internal/post"
 	"Github.com/Synoptic2023/internal/util"
 )
 
 type UserService interface {
 	CreateUser(username string, password string, role string) (User, error)
 	Login(username string, password string) (User, error)
-	Profile(userId int64) (profile, error)
+	Profile(userId int64) (Profile, error)
 	ListUsers() ([]User, error)
 }
 
@@ -55,19 +54,14 @@ func (s *userService) Login(username string, password string) (User, error) {
 	return user, nil
 }
 
-func (s *userService) Profile(userId int64) (profile, error) {
+func (s *userService) Profile(userId int64) (Profile, error) {
 
-	user, err := s.repo.GetUserById(userId)
+	profile, err := s.repo.GetUserProfile(userId)
 	if err != nil {
-		return profile{}, err
+		return Profile{}, nil
 	}
 
-	listings, err := s.repo.GetUserProfile(user.ID)
-	if err != nil {
-		return profile{}, err
-	}
-
-	return profile{user, listings, []post.Post{}}, nil
+	return profile, nil
 
 }
 

@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"Github.com/Synoptic2023/internal/listing"
+	"Github.com/Synoptic2023/internal/post"
 	"github.com/jmoiron/sqlx"
 )
 
@@ -11,7 +12,7 @@ type UserRepository interface {
 	CreateUser(user User) (User, error)
 	GetUserByUsername(username string) (User, error)
 	GetUserById(userId int64) (User, error)
-	GetUserProfile(userId int64) ([]listing.Listing, error)
+	GetUserProfile(userId int64) (Profile, error)
 	ListUsers() ([]User, error)
 }
 
@@ -60,16 +61,31 @@ func (q *userQueries) GetUserById(userId int64) (User, error) {
 	return user, nil
 }
 
-func (q *userQueries) GetUserProfile(userId int64) ([]listing.Listing, error) {
-	query := "SELECT * FROM listings WHERE user_id = $1"
-	listings := make([]listing.Listing, 0)
+func (q *userQueries) GetUserProfile(userId int64) (Profile, error) {
 
-	err := q.db.Select(&listings, query, userId)
+	user, err := q.GetUserById(userId)
 	if err != nil {
-		return []listing.Listing{}, fmt.Errorf("could not find any listings", err)
+		return Profile{}, err
 	}
 
-	return listings, nil
+	listingQuery := "SELECT listings.*, user.username FROM listings JOIN users ON listings.user_id = users.id WHERE user_id = $1"
+	listings := make([]listing.ListingWithUsername, 0)
+	err = q.db.Select(&listings, listingQuery, user.ID)
+	if err != nil {
+		return Profile{}, fmt.Errorf("could not query listings %w", err)
+	}
+
+	postQuery := "SELECT listings.*, user.username FROM listings JOIN users ON listings.user_id = users.id WHERE user_id = $1"
+	posts := make([]post.PostWithUsername, 0)
+
+	err = q.db.Select(&posts, postQuery, user.ID)
+	if err != nil {
+		return Profile{}, fmt.Errorf("Could not query posts %w", err)
+	}
+
+	profile := Profile{user, listings, posts}
+
+	return profile, nil
 }
 
 func (q *userQueries) ListUsers() ([]User, error) {

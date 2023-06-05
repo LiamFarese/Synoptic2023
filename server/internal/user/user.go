@@ -26,8 +26,8 @@ type logininput struct {
 	Password string
 }
 
-type profile struct {
+type Profile struct {
 	User     User
-	Listings []listing.Listing
-	Posts    []post.Post
+	Listings []listing.ListingWithUsername
+	Posts    []post.PostWithUsername
 }
