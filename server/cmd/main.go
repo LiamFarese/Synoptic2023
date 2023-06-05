@@ -36,7 +36,7 @@ func main() {
 
 	//user related routes
 	r.Get("/users", userHandler.ListUsers)
-	r.Get("/profiles/{userId}", userHandler.UserProfile)
+	r.Get("/profile/{userId}", userHandler.UserProfile)
 
 	//start server
 	err = http.ListenAndServe(":8080", r)
