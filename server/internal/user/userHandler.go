@@ -85,11 +85,13 @@ func (h *userHandler) UserProfile(w http.ResponseWriter, r *http.Request) {
 	userId, err := strconv.ParseInt(chi.URLParam(r, "userId"), 10, 64)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
 	}
 
-	profile, err := h.service.Profile(userId)
+	profile, err := h.service.GetProfile(userId)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
 	}
 
 	jsonRep, err := json.Marshal(profile)

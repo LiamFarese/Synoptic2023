@@ -12,7 +12,7 @@ type UserRepository interface {
 	CreateUser(user User) (User, error)
 	GetUserByUsername(username string) (User, error)
 	GetUserById(userId int64) (User, error)
-	GetUserProfile(userId int64) (Profile, error)
+	GetUserProfile(user User) (Profile, error)
 	ListUsers() ([]User, error)
 }
 
@@ -61,26 +61,25 @@ func (q *userQueries) GetUserById(userId int64) (User, error) {
 	return user, nil
 }
 
-func (q *userQueries) GetUserProfile(userId int64) (Profile, error) {
+func (q *userQueries) GetUserProfile(queryUser User) (Profile, error) {
 
-	user, err := q.GetUserById(userId)
+	user, err := q.GetUserById(queryUser.ID)
 	if err != nil {
 		return Profile{}, err
 	}
 
-	listingQuery := "SELECT listings.*, user.username FROM listings JOIN users ON listings.user_id = users.id WHERE user_id = $1"
+	listingQuery := "SELECT listings.*, users.username FROM listings JOIN users ON listings.user_id = users.id WHERE listings.user_id = $1"
 	listings := make([]listing.ListingWithUsername, 0)
 	err = q.db.Select(&listings, listingQuery, user.ID)
 	if err != nil {
 		return Profile{}, fmt.Errorf("could not query listings %w", err)
 	}
 
-	postQuery := "SELECT listings.*, user.username FROM listings JOIN users ON listings.user_id = users.id WHERE user_id = $1"
+	postQuery := "SELECT listings.*, users.username FROM listings JOIN users ON listings.user_id = users.id WHERE listings.user_id = $1"
 	posts := make([]post.PostWithUsername, 0)
-
 	err = q.db.Select(&posts, postQuery, user.ID)
 	if err != nil {
-		return Profile{}, fmt.Errorf("Could not query posts %w", err)
+		return Profile{}, fmt.Errorf("could not query posts %w", err)
 	}
 
 	profile := Profile{user, listings, posts}

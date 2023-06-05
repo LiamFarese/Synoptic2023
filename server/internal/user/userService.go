@@ -7,7 +7,7 @@ import (
 type UserService interface {
 	CreateUser(username string, password string, role string) (User, error)
 	Login(username string, password string) (User, error)
-	Profile(userId int64) (Profile, error)
+	GetProfile(userId int64) (Profile, error)
 	ListUsers() ([]User, error)
 }
 
@@ -54,11 +54,16 @@ func (s *userService) Login(username string, password string) (User, error) {
 	return user, nil
 }
 
-func (s *userService) Profile(userId int64) (Profile, error) {
+func (s *userService) GetProfile(userId int64) (Profile, error) {
 
-	profile, err := s.repo.GetUserProfile(userId)
+	user, err := s.repo.GetUserById(userId)
 	if err != nil {
-		return Profile{}, nil
+		return Profile{}, err
+	}
+
+	profile, err := s.repo.GetUserProfile(user)
+	if err != nil {
+		return Profile{}, err
 	}
 
 	return profile, nil
