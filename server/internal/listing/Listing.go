@@ -8,6 +8,7 @@ type Listing struct {
 	// Content of the listing
 	Body      string             `db:"body" json:"body"`
 	UserID    int64              ` db:"user_id" json:"user_id"`
+	IsSettled bool               ` db:"is_settled" json:"is_settled"`
 	CreatedAt pgtype.Timestamptz `db:"created_at" json:"created_at"`
 }
 
@@ -18,5 +19,13 @@ type ListingWithUsername struct {
 	// Content of the listing
 	Body      string             `db:"body" json:"body"`
 	UserID    int64              ` db:"user_id" json:"user_id"`
+	IsSettled bool               ` db:"is_settled" json:"is_settled"`
 	CreatedAt pgtype.Timestamptz `db:"created_at" json:"created_at"`
+}
+
+type CreateListingParams struct {
+	Title    string `json:"title"`
+	Body     string `json:"body"`
+	UserID   int64  `json:"user_id"`
+	Username string `json:"username"`
 }

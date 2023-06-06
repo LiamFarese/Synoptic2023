@@ -75,7 +75,7 @@ func (q *userQueries) GetUserProfile(queryUser User) (Profile, error) {
 		return Profile{}, fmt.Errorf("could not query listings %w", err)
 	}
 
-	postQuery := "SELECT listings.*, users.username FROM listings JOIN users ON listings.user_id = users.id WHERE listings.user_id = $1"
+	postQuery := "SELECT posts.*, users.username FROM posts JOIN users ON posts.user_id = users.id WHERE posts.user_id = $1"
 	posts := make([]post.PostWithUsername, 0)
 	err = q.db.Select(&posts, postQuery, user.ID)
 	if err != nil {

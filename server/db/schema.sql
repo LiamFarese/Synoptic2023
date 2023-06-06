@@ -11,6 +11,7 @@ CREATE TABLE "listings" (
   "title"      varchar    NOT NULL,
   "body"       text       NOT NULL,
   "user_id"    bigint     NOT NULL,
+  "is_settled" boolean    NOT NULL, DEFAULT false
   "created_at" timestamptz NOT NULL DEFAULT (now()),
   CONSTRAINT "fk_listings_user" FOREIGN KEY ("user_id") REFERENCES "users" ("id") ON DELETE SET DEFAULT
 );

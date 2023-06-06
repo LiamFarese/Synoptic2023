@@ -4,6 +4,7 @@ import (
 	"log"
 	"net/http"
 
+	"Github.com/Synoptic2023/internal/listing"
 	"Github.com/Synoptic2023/internal/user"
 
 	"github.com/go-chi/chi/v5"
@@ -30,6 +31,11 @@ func main() {
 	userService := user.NewUserService(userRepo)
 	userHandler := user.NewUserHandler(userService)
 
+	//listing dependancies
+	listingRepo := listing.NewListingRepository(db)
+	listingService := listing.NewListingService(listingRepo)
+	listingHandler := listing.NewListingHandler(listingService)
+
 	//register and login routes
 	r.Post("/register", userHandler.CreateUser)
 	r.Post("/login", userHandler.Login)
@@ -37,6 +43,9 @@ func main() {
 	//user related routes
 	r.Get("/users", userHandler.ListUsers)
 	r.Get("/profile/{userId}", userHandler.UserProfile)
+
+	//listing routes
+	r.Post("/listing", listingHandler.CreateListing)
 
 	//start server
 	err = http.ListenAndServe(":8080", r)
