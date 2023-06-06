@@ -51,6 +51,8 @@ func (s *userService) Login(username string, password string) (User, error) {
 		return User{}, err
 	}
 
+	user.Password = ""
+
 	return user, nil
 }
 
