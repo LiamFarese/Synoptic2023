@@ -24,8 +24,7 @@ type ListingWithUsername struct {
 }
 
 type CreateListingParams struct {
-	Title    string `json:"title"`
-	Body     string `json:"body"`
-	UserID   int64  `json:"user_id"`
-	Username string `json:"username"`
+	Title  string `json:"title"`
+	Body   string `json:"body"`
+	UserID int64  `json:"user_id"`
 }

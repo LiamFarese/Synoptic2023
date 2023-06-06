@@ -31,11 +31,6 @@ func main() {
 	userService := user.NewUserService(userRepo)
 	userHandler := user.NewUserHandler(userService)
 
-	//listing dependancies
-	listingRepo := listing.NewListingRepository(db)
-	listingService := listing.NewListingService(listingRepo)
-	listingHandler := listing.NewListingHandler(listingService)
-
 	//register and login routes
 	r.Post("/register", userHandler.CreateUser)
 	r.Post("/login", userHandler.Login)
@@ -44,8 +39,16 @@ func main() {
 	r.Get("/users", userHandler.ListUsers)
 	r.Get("/profile/{userId}", userHandler.UserProfile)
 
+	//listing dependancies
+	listingRepo := listing.NewListingRepository(db)
+	listingService := listing.NewListingService(listingRepo)
+	listingHandler := listing.NewListingHandler(listingService)
+
 	//listing routes
 	r.Post("/listing", listingHandler.CreateListing)
+	r.Get("/listing", listingHandler.ListListings)
+	r.Get("/listing/{listingId}", listingHandler.GetListing)
+	r.Patch("/listing/{listingId}", listingHandler.CloseListing)
 
 	//start server
 	err = http.ListenAndServe(":8080", r)
