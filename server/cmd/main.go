@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"Github.com/Synoptic2023/internal/listing"
+	"Github.com/Synoptic2023/internal/post"
 	"Github.com/Synoptic2023/internal/user"
 
 	"github.com/go-chi/chi/v5"
@@ -46,9 +47,19 @@ func main() {
 
 	//listing routes
 	r.Post("/listing", listingHandler.CreateListing)
-	r.Get("/listing", listingHandler.ListListings)
+	r.Get("/listings", listingHandler.ListListings)
 	r.Get("/listing/{listingId}", listingHandler.GetListing)
 	r.Patch("/listing/{listingId}", listingHandler.CloseListing)
+
+	//post dependancies
+	postRepo := post.NewPosteRepository(db)
+	postService := post.NewPostService(postRepo)
+	postHandler := post.NewPostHandler(postService)
+
+	//post routes
+	r.Post("/post", postHandler.CreatePost)
+	r.Get("/posts", postHandler.ListPosts)
+	r.Get("/post/{postId}", postHandler.GetPost)
 
 	//start server
 	err = http.ListenAndServe(":8080", r)
