@@ -26,13 +26,13 @@ func (q *postQueries) CreatePost(post Post) (PostWithUsername, error) {
 
 	err := q.db.Get(&newPost, query, post.Title, post.Body, post.UserID)
 	if err != nil {
-		return PostWithUsername{}, fmt.Errorf("could not create new listing %w", err)
+		return PostWithUsername{}, fmt.Errorf("could not create new post %w", err)
 	}
 
 	fetchUsername := "SELECT posts.*, users.username FROM posts JOIN users ON posts.user_id = users.id WHERE posts.id = $1"
 	err = q.db.Get(&newPost, fetchUsername, newPost.ID)
 	if err != nil {
-		return PostWithUsername{}, fmt.Errorf("could not retrieve new listing %w", err)
+		return PostWithUsername{}, fmt.Errorf("could not retrieve new post %w", err)
 	}
 
 	return newPost, nil
@@ -55,7 +55,7 @@ func (q *postQueries) ListPosts() ([]PostWithUsername, error) {
 
 	err := q.db.Select(&posts, query)
 	if err != nil {
-		return []PostWithUsername{}, fmt.Errorf("could not find any listings %w", err)
+		return []PostWithUsername{}, fmt.Errorf("could not find any posts %w", err)
 	}
 
 	return posts, nil
