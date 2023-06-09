@@ -23,7 +23,7 @@ func main() {
 
 	log.Printf("connected to database")
 
-	//initalize router
+	//Initialise router
 	r := chi.NewRouter()
 
 	//user dependancies
