@@ -11,6 +11,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
+	"github.com/go-chi/cors"
 	_ "github.com/jackc/pgx/v5/stdlib"
 	"github.com/jmoiron/sqlx"
 )
@@ -28,6 +29,11 @@ func main() {
 
 	//initalize router
 	r := chi.NewRouter()
+
+	r.Use(cors.Handler(cors.Options{
+		// AllowedOrigins:   []string{"https://foo.com"}, // Use this to allow specific origin hosts
+		AllowedOrigins: []string{"http://localhost:5173"},
+	}))
 
 	r.Use(middleware.Logger)
 	r.Use(middleware.NoCache)

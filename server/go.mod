@@ -13,6 +13,7 @@ require (
 
 require (
 	github.com/go-chi/chi/v5 v5.0.8
+	github.com/go-chi/cors v1.2.1
 	github.com/jackc/pgx v3.6.2+incompatible
 	github.com/jmoiron/sqlx v1.3.5
 	golang.org/x/crypto v0.6.0
