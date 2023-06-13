@@ -45,7 +45,7 @@ func main() {
 	listingHandler := listing.NewListingHandler(listingService)
 
 	//listing routes
-	r.Post("/listing", listingHandler.CreateListing)
+	r.Post("/listing/create", listingHandler.CreateListing)
 	r.Get("/listing", listingHandler.ListListings)
 	r.Get("/listing/{listingId}", listingHandler.GetListing)
 	r.Patch("/listing/{listingId}", listingHandler.CloseListing)

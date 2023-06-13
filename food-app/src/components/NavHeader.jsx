@@ -18,7 +18,7 @@ import { Link } from 'react-router-dom';
 const pages = [ 
 	['Home', '/' ],
 	['About', '/about' ],
-	['Posts', '/posts' ],
+	['listing', '/listing' ],
 	['Forum', '/forum' ]
 ]
 

@@ -3,8 +3,8 @@ import {Route, Routes} from 'react-router-dom'
 
 import Home from './pages/Home'
 import About from './pages/About'
-import Posts from './pages/posts/Posts'
-import CreatePost from './pages/posts/CreatePost'
+import Listing from './pages/listing/Listing'
+import CreateListing from './pages/listing/CreateListing'
 import Forum from './pages/Forum'
 
 import './App.css'
@@ -44,8 +44,8 @@ function App() {
 
 					<Route path='/about' element={<About />}/>
 
-					<Route path='/posts' element={<Posts />}/>
-					<Route path='/posts/create' element={<CreatePost />}/>
+					<Route path='/listing' element={<Listing />}/>
+					<Route path='/listing/create' element={<CreateListing />}/>
 
 					<Route path='/forum' element={<Forum />}/>
 

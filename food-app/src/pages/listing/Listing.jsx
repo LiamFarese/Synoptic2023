@@ -7,9 +7,10 @@ import Container from '@mui/material/Container'
 import { Link } from 'react-router-dom';
 
 import NavHeader from '../../components/NavHeader'
-import PostsForm from '../../components/PostsForm'
+import ListingGrid from '../../components/ListingGrid'
 
-export default function Posts() {
+
+export default function listing() {
 	return (
 		<>
 			<NavHeader />
@@ -30,17 +31,16 @@ export default function Posts() {
 							color: "#1b5e20"
 						}}}>Fight Food Waste</Typography>
 
-					<Typography variant='body1'>...by sharing food instead of scrapping it</Typography>
+					<Typography variant='body1'>...by saving these from being thrown away</Typography>
 
 					<Typography variant='body2'>
-						<Link to="/posts">Go Back</Link>
+						<Link to="/listing/create">Want to share? Post it!</Link>
 						
 					</Typography>
 
 					<br/>
-
-					<PostsForm/>
-
+					
+					<ListingGrid />
 
 				</Container>
 
