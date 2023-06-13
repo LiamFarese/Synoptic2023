@@ -20,3 +20,9 @@ type PostWithUsername struct {
 	UserID    int64              ` db:"user_id" json:"user_id"`
 	CreatedAt pgtype.Timestamptz `db:"created_at" json:"created_at"`
 }
+
+type CreatePostParams struct {
+	Title  string `json:"title"`
+	Body   string `json:"body"`
+	UserID int64  `json:"user_id"`
+}

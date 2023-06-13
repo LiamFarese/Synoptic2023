@@ -4,10 +4,13 @@ import (
 	"log"
 	"net/http"
 
+	"Github.com/Synoptic2023/internal/comment"
 	"Github.com/Synoptic2023/internal/listing"
+	"Github.com/Synoptic2023/internal/post"
 	"Github.com/Synoptic2023/internal/user"
 
 	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi/v5/middleware"
 	_ "github.com/jackc/pgx/v5/stdlib"
 	"github.com/jmoiron/sqlx"
 )
@@ -25,6 +28,10 @@ func main() {
 
 	//Initialise router
 	r := chi.NewRouter()
+
+	r.Use(middleware.Logger)
+	r.Use(middleware.NoCache)
+	r.Use(middleware.Heartbeat("/"))
 
 	//user dependancies
 	userRepo := user.NewUserRepository(db)
@@ -49,6 +56,26 @@ func main() {
 	r.Get("/listing", listingHandler.ListListings)
 	r.Get("/listing/{listingId}", listingHandler.GetListing)
 	r.Patch("/listing/{listingId}", listingHandler.CloseListing)
+
+	//post dependancies
+	postRepo := post.NewPosteRepository(db)
+	postService := post.NewPostService(postRepo)
+	postHandler := post.NewPostHandler(postService)
+
+	//post routes
+	r.Post("/post", postHandler.CreatePost)
+	r.Get("/posts", postHandler.ListPosts)
+	r.Get("/post/{postId}", postHandler.GetPost)
+
+	//comment dependanies
+	commentRepo := comment.NewCommentRepository(db)
+	commentServie := comment.NewCommentService(commentRepo)
+	commentHandler := comment.NewCommentHandler(commentServie)
+
+	//comment routes
+	r.Post("/comment", commentHandler.CreateComment)
+	r.Post("/reply", commentHandler.Reply)
+	r.Get("/comments/{postId}", commentHandler.GetCommentsFromPost)
 
 	//start server
 	err = http.ListenAndServe(":8080", r)
