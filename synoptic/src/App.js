@@ -1,7 +1,7 @@
 
 function App() {
 
-  const username = "Will"
+  const username = "World"
 
   return (
     <h1>hello {username}</h1>
