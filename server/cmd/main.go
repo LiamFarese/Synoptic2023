@@ -27,7 +27,7 @@ func main() {
 
 	log.Printf("connected to database")
 
-	//initalize router
+	//Initialise router
 	r := chi.NewRouter()
 
 	r.Use(cors.Handler(cors.Options{
@@ -62,8 +62,8 @@ func main() {
 	listingHandler := listing.NewListingHandler(listingService)
 
 	//listing routes
-	r.Post("/listing", listingHandler.CreateListing)
-	r.Get("/listings", listingHandler.ListListings)
+	r.Post("/listing/create", listingHandler.CreateListing)
+	r.Get("/listing", listingHandler.ListListings)
 	r.Get("/listing/{listingId}", listingHandler.GetListing)
 	r.Patch("/listing/{listingId}", listingHandler.CloseListing)
 

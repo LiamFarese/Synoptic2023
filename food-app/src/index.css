@@ -1,0 +1,29 @@
+
+ 
+ /* Container holding the image and the text */
+ .container {
+  position: relative;
+  text-align: center;
+  color: rgb(255, 255, 255);
+}
+
+/* Centered text */
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+	/* background-color: #3D550C; */
+	text-shadow: black 0.1em 0.1em 0.075em;
+} 
+
+.hover {
+  cursor: pointer;
+  font-size: 5vmin;
+  font-weight: 300;
+  transition: font-weight 250ms ease-in-out;
+}
+
+.hover:hover {
+  font-weight: 900;
+}
