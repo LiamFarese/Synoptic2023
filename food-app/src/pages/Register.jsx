@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import * as React from 'react';
 import NavHeader from '../components/NavHeader.jsx'
-import LoginForm from '../components/LoginForm.jsx'
+import RegisterForm from '../components/RegisterForm.jsx'
 
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
@@ -25,15 +25,15 @@ export default function About() {
 						textAlign: 'center',
 						typography: {
 							color: "#1b5e20"
-						}}}>Login</Typography>
+						}}}>Register With Us</Typography>
 
 					<br />
 
-					<Typography variant='h5'>Enter account details</Typography>
+					<Typography variant='h5'>Enter new account details</Typography>
 
 					<br/>
 
-					<LoginForm />
+					<RegisterForm />
 
 				</Container>
 

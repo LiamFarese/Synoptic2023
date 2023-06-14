@@ -6,6 +6,8 @@ import About from './pages/About'
 import Listing from './pages/listing/Listing'
 import CreateListing from './pages/listing/CreateListing'
 import Forum from './pages/Forum'
+import Register from './pages/Register'
+import Login from './pages/Login'
 
 import './App.css'
 
@@ -49,6 +51,9 @@ function App() {
 
 					<Route path='/forum' element={<Forum />}/>
 
+					<Route path='/register' element={<Register/>}/>
+
+					<Route path='/login' element={<Login />}/>
 				
 				</Routes>
 			</ThemeProvider>

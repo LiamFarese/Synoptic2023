@@ -25,7 +25,6 @@ export default function WithMaterialUI() {
       alert(JSON.stringify(values, null, 2));
 
 			fetch('http://localhost:8080/listing/create', {
-				credentials: 'include', // Set credentials to true
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
