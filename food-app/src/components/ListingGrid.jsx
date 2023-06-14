@@ -9,7 +9,9 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
+import CardActionArea from '@mui/material/CardActionArea';
+
+import { useEffect, useState } from 'react';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -20,28 +22,56 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function ResponsiveGrid() {
+	const [listings, setListings] = useState([]);
+
+	useEffect(() => {
+    // Fetch data from the database or API
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:8080/listing');
+        const data = await response.json();
+        setListings(data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+		fetchData();
+  }, []);
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={{ xs: 2, md: 4 }} columns={{ xs: 2, sm: 8, md: 12 }}>
-        {Array.from(Array(6)).map((_, index) => (
+        {listings.map((listing, index) => (
           <Grid xs={2} sm={4} md={4} key={index}>
             <Item sx={{ display: 'flex', justifyContent: 'center' }}>
 							
 							{/* Listing Card */}
-							<Card sx={{ maxWidth: 345 }}>
+							<Card sx={{ width: 345 }}>
 								<CardActionArea>
 									<CardMedia
 										component="img"
 										height="140"
 										image="..."
-										alt="Food Pic"
+										alt="Pic to go here..."
 									/>
 									<CardContent>
 										<Typography gutterBottom variant="h5" component="div">
-											Item Name
+											{listing.title}
+										</Typography>
+										<Typography variant="body2" color="text.secondary"   sx={{
+											height: '3em', // Adjust the height as needed
+											wordWrap: 'break-word',
+											overflow: 'hidden',
+											textOverflow: 'ellipsis',
+											display: '-webkit-box',
+											WebkitLineClamp: 2,
+											WebkitBoxOrient: 'vertical'}}
+										>
+											{listing.body}
 										</Typography>
 										<Typography variant="body2" color="text.secondary">
-											Item Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Will be user submitted.
+											Post by {listing.username}
 										</Typography>
 									</CardContent>
 								</CardActionArea>

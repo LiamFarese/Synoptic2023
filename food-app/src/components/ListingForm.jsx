@@ -80,7 +80,7 @@ export default function WithMaterialUI() {
 				id="user_id"
 				name="user_id"
 				label="User ID"
-				type="text"
+				type="number"
 				value={formik.values.user_id}
 				onChange={formik.handleChange}
 				error={formik.touched.user_id && Boolean(formik.errors.user_id)}
