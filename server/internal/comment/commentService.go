@@ -1,8 +1,10 @@
 package comment
 
+import "database/sql"
+
 type CommentService interface {
 	CreateComment(body string, userId int64, postId int64) (CommentWithUsername, error)
-	Reply(body string, userId int64, postId int64, parentComment int64) (CommentWithUsername, error)
+	Reply(body string, userId int64, postId int64, parentComment sql.NullInt64) (CommentWithUsername, error)
 	GetCommentsFromPost(postId int64) ([]CommentWithUsername, error)
 }
 
@@ -26,7 +28,7 @@ func (s *commentService) CreateComment(body string, userId int64, postId int64) 
 
 }
 
-func (s *commentService) Reply(body string, userId int64, postId int64, parentComment int64) (CommentWithUsername, error) {
+func (s *commentService) Reply(body string, userId int64, postId int64, parentComment sql.NullInt64) (CommentWithUsername, error) {
 	comment := Comment{Body: body, UserID: userId, PostID: postId, ParentComment: parentComment}
 
 	newComment, err := s.repo.Reply(comment)
