@@ -36,7 +36,7 @@ func (q *userQueries) CreateUser(user User) (User, error) {
 }
 
 func (q *userQueries) GetUserByUsername(username string) (User, error) {
-	query := "SELECT id, username, role, created_at FROM users WHERE username = $1 LIMIT 1;"
+	query := "SELECT * FROM users WHERE username = $1 LIMIT 1;"
 	user := User{}
 
 	err := q.db.Get(&user, query, username)
