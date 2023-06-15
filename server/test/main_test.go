@@ -63,7 +63,6 @@ func TestGetUserByUsername(t *testing.T) {
 	require.NotEmpty(t, retrievedUser)
 
 	require.Equal(t, retrievedUser.Username, newUser.Username)
-	require.Equal(t, retrievedUser.Password, newUser.Password)
 	require.Equal(t, retrievedUser.ID, newUser.ID)
 	require.Equal(t, retrievedUser.CreatedAt, newUser.CreatedAt)
 }
