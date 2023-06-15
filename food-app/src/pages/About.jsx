@@ -56,7 +56,7 @@ export default function About() {
 					<Paper elevation={4} sx={{
 						padding: '2rem',
 						}}>
-						<Typography variant='body1'>The cost of living crisis has had a profound impact on people's lives.
+						<Typography variant='body1'>The cost of living crisis has had a profound impact on peoples lives.
 						<br/>Govan, and all over the UK, people are increasingly finding it more difficult to access affordable and nutritious food.
 						<br/>Many people find themselves struggling to make ends meet, often having to make difficult choices between paying bills, rent, or buying sufficient food.
 						</Typography>

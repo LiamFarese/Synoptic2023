@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import * as React from 'react';
 import NavHeader from '../components/NavHeader'
-import BasicCard from '../components/CardHome'
+import CardHome from '../components/CardHome'
 
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
@@ -48,7 +48,7 @@ export default function Home() {
 
 
 			<Container style={{ width: "80%" }}>
-				<BasicCard/>
+				<CardHome/>
 			</Container>
 
 			<br/>
