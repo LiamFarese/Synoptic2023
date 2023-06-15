@@ -43,7 +43,7 @@ function ResponsiveAppBar() {
     setAnchorElUser(null);
   };
 
-	const isUserLoggedIn = false;
+	const isUserLoggedIn = true;
 
   return (
     <AppBar position="static" sx={{mb:'2%'}}>
@@ -103,9 +103,14 @@ function ResponsiveAppBar() {
 								</MenuItem>
 							))}
 							{isUserLoggedIn ? (
-								<MenuItem key='7' onClick={handleCloseNavMenu}>
-									<Link to='/logout'>Logout</Link>
-								</MenuItem>
+								<>
+									<MenuItem key='5' onClick={handleCloseNavMenu}>
+										<Link to='/login'>Login</Link>
+									</MenuItem>
+									<MenuItem key='6' onClick={handleCloseNavMenu}>
+										<Link to='/register'>Register</Link>
+									</MenuItem>
+								</>
 							) : (
 								<>
 									<MenuItem key='5' onClick={handleCloseNavMenu}>
@@ -147,6 +152,25 @@ function ResponsiveAppBar() {
 								<Link to={page[1]}>{page[0]}</Link>
               </Button>
             ))}
+						{isUserLoggedIn ? (
+							<>
+								<Button key='5' onClick={handleCloseNavMenu}>
+									<Link to='/login'>Login</Link>
+								</Button>
+								<Button key='6' onClick={handleCloseNavMenu}>
+									<Link to='/register'>Register</Link>
+								</Button>
+							</>
+						) : (
+							<>
+								<Button key='5' onClick={handleCloseNavMenu}>
+									<Link to='/login'>Login</Link>
+								</Button>
+								<Button key='6' onClick={handleCloseNavMenu}>
+									<Link to='/register'>Register</Link>
+								</Button>
+							</>
+						)}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>

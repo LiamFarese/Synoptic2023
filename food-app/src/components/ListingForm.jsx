@@ -62,6 +62,7 @@ export default function WithMaterialUI() {
 				onChange={formik.handleChange}
 				error={formik.touched.title && Boolean(formik.errors.title)}
 				helperText={formik.touched.title && formik.errors.title}
+				sx={{ paddingBottom: 2 }}
 			/>
 
 			<TextField
@@ -74,6 +75,7 @@ export default function WithMaterialUI() {
 				onChange={formik.handleChange}
 				error={formik.touched.body && Boolean(formik.errors.body)}
 				helperText={formik.touched.body && formik.errors.body}
+				sx={{ paddingBottom: 2 }}
 			/>
 
 			<TextField
@@ -86,6 +88,7 @@ export default function WithMaterialUI() {
 				onChange={formik.handleChange}
 				error={formik.touched.user_id && Boolean(formik.errors.user_id)}
 				helperText={formik.touched.user_id && formik.errors.user_id}
+				sx={{ paddingBottom: 2 }}
 			/>
 
         <Button color="primary" variant="contained" fullWidth type="submit">
