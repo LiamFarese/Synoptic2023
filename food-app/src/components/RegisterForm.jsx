@@ -40,11 +40,13 @@ export default function WithMaterialUI() {
 				.then((response) => response.json())
 				.then((data) => {
 					// Handle the response from the server
-					console.log(data);
+					console.log(data + "Registration successful");
+					alert("Registration Successful")
 				})
 				.catch((error) => {
 					// Handle any errors that occur during the request
-					console.error(error);
+					console.error(error + "Registration failed");
+					alert("Registration Failed")
 				});
     },
   });

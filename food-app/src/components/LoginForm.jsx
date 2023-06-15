@@ -39,11 +39,13 @@ export default function WithMaterialUI() {
 				.then((response) => response.json())
 				.then((data) => {
 					// Handle the response from the server
-					console.log(data);
+					console.log(data + "Login successful");
+					alert("Login Successful")
 				})
 				.catch((error) => {
 					// Handle any errors that occur during the request
-					console.error(error);
+					console.error(error + "Login failed");
+					alert("Login Failed")
 				});
     },
   });
