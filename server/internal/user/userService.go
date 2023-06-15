@@ -22,6 +22,7 @@ func NewUserService(userRepository UserRepository) UserService {
 // returns a user with no id set since this is set once the user is entered into the database
 func (s *userService) CreateUser(username string, password string, role string) (User, error) {
 
+	//hashes password using the standard bcrypt hashing alogrithm included in go
 	passwordHash, err := util.HashPassword(password)
 
 	if err != nil {

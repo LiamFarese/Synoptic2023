@@ -11,6 +11,12 @@ migrateup:
 	migrate -path ./db/migrations -database "postgresql://root:secret@localhost:5432/synoptic?sslmode=disable" -verbose up 
 
 migratedown:
-	migrate -path ./db/migrations -database "postgresql://root:secret@localhost:5432/synoptic?sslmode=disable" -verbose down 
+	migrate -path ./db/migrations -database "postgresql://root:secret@localhost:5432/synoptic?sslmode=disable" -verbose down
 
-.PHONY: postgres createdb dropdb migrateup migratedown
+createtestdb:
+	docker exec -it postgres15.3 createdb --username=root --owner=root synoptictest
+
+migrateuptest:
+	migrate -path ./db/migrations -database "postgresql://root:secret@localhost:5432/synoptictest?sslmode=disable" -verbose up
+
+.PHONY: postgres createdb dropdb migrateup migratedown createtestdb migrateuptest
